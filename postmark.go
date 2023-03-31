@@ -86,13 +86,21 @@ func (client *Client) doRequest(opts parameters, dst interface{}) error {
 		return err
 	}
 
+	if res.StatusCode != http.StatusOK {
+		apiErr := APIError{}
+		err = json.NewDecoder(res.Body).Decode(&apiErr)
+		if err != nil {
+			return err
+		}
+		return apiErr
+	}
+
 	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return err
 	}
-	err = json.Unmarshal(body, dst)
-	return err
+	return json.Unmarshal(body, dst)
 }
 
 // APIError represents errors returned by Postmark

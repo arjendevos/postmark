@@ -80,7 +80,7 @@ func (client *Client) GetDomains(count, offset int64) (DomainList, error) {
 	err := client.doRequest(parameters{
 		Method:    "GET",
 		Path:      fmt.Sprintf("domains?%s", values.Encode()),
-		TokenType: server_token,
+		TokenType: account_token,
 	}, &res)
 	return res, err
 }
@@ -95,7 +95,7 @@ func (client *Client) GetDomain(domainID string) (Domain, error) {
 	err := client.doRequest(parameters{
 		Method:    "GET",
 		Path:      fmt.Sprintf("domains/%s", domainID),
-		TokenType: server_token,
+		TokenType: account_token,
 	}, &res)
 	return res, err
 }
@@ -110,7 +110,7 @@ func (client *Client) CreateDomain(domain CreateDomain) (Domain, error) {
 		Method:    "POST",
 		Path:      "domains",
 		Payload:   domain,
-		TokenType: server_token,
+		TokenType: account_token,
 	}, &res)
 	return res, err
 }
@@ -125,7 +125,7 @@ func (client *Client) EditDomain(domainID string, template EditDomain) (Domain, 
 		Method:    "PUT",
 		Path:      fmt.Sprintf("domains/%s", domainID),
 		Payload:   template,
-		TokenType: server_token,
+		TokenType: account_token,
 	}, &res)
 	return res, err
 }
@@ -139,7 +139,7 @@ func (client *Client) DeleteDomain(domainID string) error {
 	err := client.doRequest(parameters{
 		Method:    "DELETE",
 		Path:      fmt.Sprintf("domains/%s", domainID),
-		TokenType: server_token,
+		TokenType: account_token,
 	}, &res)
 
 	if res.ErrorCode != 0 {
@@ -158,7 +158,7 @@ func (client *Client) VerifyDKIM(domainID string) (Domain, error) {
 	err := client.doRequest(parameters{
 		Method:    "PUT",
 		Path:      fmt.Sprintf("domains/%s/verifyDkim", domainID),
-		TokenType: server_token,
+		TokenType: account_token,
 	}, &res)
 
 	return res, err
@@ -173,7 +173,7 @@ func (client *Client) VerifyReturnPath(domainID string) (Domain, error) {
 	err := client.doRequest(parameters{
 		Method:    "PUT",
 		Path:      fmt.Sprintf("domains/%s/verifyReturnPath", domainID),
-		TokenType: server_token,
+		TokenType: account_token,
 	}, &res)
 
 	return res, err
@@ -188,7 +188,7 @@ func (client *Client) RotateDKIM(domainID string) (RotatedDKIM, error) {
 	err := client.doRequest(parameters{
 		Method:    "POST",
 		Path:      fmt.Sprintf("domains/%s/rotatedkim", domainID),
-		TokenType: server_token,
+		TokenType: account_token,
 	}, &res)
 
 	return res, err
